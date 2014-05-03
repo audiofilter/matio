@@ -364,7 +364,7 @@ Mat_LogClose( void )
  * @return 0 on success
  */
 int
-Mat_LogInit( const char *prog_name )
+Mat_LogInit()
 {
     logfunc = &matio_error_func;
 

@@ -4701,7 +4701,7 @@ ReadCompressedDataSlabN(mat_t *mat,z_stream *z,void *data,
 {
     int nBytes = 0, i, j, N, I = 0;
     int inc[10] = {0,}, cnt[10] = {0,}, dimp[10] = {0,};
-    z_stream z_copy = {0,};
+    z_stream z_copy;// = {0,};
 
     if ( (mat   == NULL) || (data   == NULL) || (mat->fp == NULL) ||
          (start == NULL) || (stride == NULL) || (edge    == NULL) ) {
@@ -6047,7 +6047,7 @@ ReadCompressedDataSlab1(mat_t *mat,z_stream *z,void *data,
     int stride,int edge)
 {
     int nBytes = 0, i, err;
-    z_stream z_copy = {0,};
+    z_stream z_copy;// = {0,};
 
     if ( (mat   == NULL) || (data   == NULL) || (mat->fp == NULL) )
         return 0;
@@ -6219,7 +6219,7 @@ ReadCompressedDataSlab2(mat_t *mat,z_stream *z,void *data,
 {
     int nBytes = 0, data_size, i, j, err;
     int pos, row_stride, col_stride;
-    z_stream z_copy = {0,};
+    z_stream z_copy; // = {0,};
 
     if ( (mat   == NULL) || (data   == NULL) || (mat->fp == NULL) ||
          (start == NULL) || (stride == NULL) || (edge    == NULL) ) {

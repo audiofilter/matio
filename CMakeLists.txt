@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 2.8)
 project (matio)
 
 set(LIBRARY_OUTPUT_PATH ..)
+set(CMAKE_C_FLAGS "-Wall -Wextra -Werror -Wno-unused-function")
 
 include_directories (
 ./getopt
@@ -21,6 +22,9 @@ set(SOURCES
 ./src/matvar_struct.c
 ./src/read_data.c
 ./src/snprintf.c
+)
+
+set(EXTRA
 ./test/test_mat.c
 ./test/test_snprintf.c
 ./tools/matdump.c

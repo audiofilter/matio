@@ -572,7 +572,7 @@ Mat_VarCreate(const char *name,enum matio_classes class_type,
         matvar->name = strdup_printf("%s",name);
     matvar->rank = rank;
     matvar->dims = malloc(matvar->rank*sizeof(*matvar->dims));
-    for ( i = 0; i < matvar->rank; i++ ) {
+    for ( i = 0; i < (size_t)matvar->rank; i++ ) {
         matvar->dims[i] = dims[i];
         nmemb *= dims[i];
     }
@@ -844,7 +844,7 @@ Mat_VarDuplicate(const matvar_t *in, int opt)
     if ( NULL != in->internal->fieldnames && in->internal->num_fields > 0 ) {
         out->internal->fieldnames = calloc(in->internal->num_fields,
                                            sizeof(*in->internal->fieldnames));
-        for ( i = 0; i < in->internal->num_fields; i++ ) {
+        for ( i = 0; i < (int)(in->internal->num_fields); i++ ) {
             if ( NULL != in->internal->fieldnames[i] )
                 out->internal->fieldnames[i] =
                     strdup(in->internal->fieldnames[i]);
@@ -927,7 +927,7 @@ Mat_VarFree(matvar_t *matvar)
         return;
     if ( matvar->dims ) {
         nmemb = 1;
-        for ( i = 0; i < matvar->rank; i++ )
+        for ( i = 0; i < (size_t)matvar->rank; i++ )
             nmemb *= matvar->dims[i];
         free(matvar->dims);
     }
@@ -1282,7 +1282,7 @@ Mat_VarPrint( matvar_t *matvar, int printdata )
         int nfields = matvar->internal->num_fields;
         if ( nmemb*nfields > 0 ) {
             printf("Fields[%" SIZE_T_FMTSTR "] {\n", nfields*nmemb);
-            for ( i = 0; i < nfields*nmemb; i++ ) {
+            for ( i = 0; i < (int)(nfields*nmemb); i++ ) {
                 if ( NULL == fields[i] ) {
                     printf("      Name: %s\n      Rank: %d\n",
                            matvar->internal->fieldnames[i%nfields],0);
@@ -1341,34 +1341,34 @@ Mat_VarPrint( matvar_t *matvar, int printdata )
                     mat_complex_split_t *complex_data = matvar->data;
                     char *rp = complex_data->Re;
                     char *ip = complex_data->Im;
-                   for ( i = 0; i < matvar->dims[0] && i < 15; i++ ) {
-                        for ( j = 0; j < matvar->dims[1] && j < 15; j++ ) {
-                            size_t idx = matvar->dims[0]*j+i;
+					for ( i = 0; i < (int)matvar->dims[0] && i < 15; i++ ) {
+					  for ( j = 0; j < (int)matvar->dims[1] && j < 15; j++ ) {
+						size_t idx = (int)matvar->dims[0]*j+i;
                             Mat_PrintNumber(matvar->data_type,rp+idx*stride);
                             printf(" + ");
                             Mat_PrintNumber(matvar->data_type,ip+idx*stride);
                             printf("i ");
                         }
-                        if ( j < matvar->dims[1] )
+					  if ( j < (int)matvar->dims[1] )
                             printf("...");
                         printf("\n");
                     }
-                    if ( i < matvar->dims[0] )
+                    if ( i <(int)matvar->dims[0] )
                         printf(".\n.\n.\n");
                } else {
                    char *data = matvar->data;
-                   for ( i = 0; i < matvar->dims[0] && i < 15; i++ ) {
-                        for ( j = 0; j < matvar->dims[1] && j < 15; j++ ) {
+                   for ( i = 0; i < (int)matvar->dims[0] && i < 15; i++ ) {
+					 for ( j = 0; j < (int)matvar->dims[1] && j < 15; j++ ) {
                             size_t idx = matvar->dims[0]*j+i;
                             Mat_PrintNumber(matvar->data_type,
                                             data+idx*stride);
                             printf(" ");
                         }
-                        if ( j < matvar->dims[1] )
+					 if ( j < (int)matvar->dims[1] )
                             printf("...");
                         printf("\n");
                     }
-                    if ( i < matvar->dims[0] )
+				   if ( i < (int)matvar->dims[0] )
                         printf(".\n.\n.\n");
                 }
                 break;
@@ -1378,8 +1378,8 @@ Mat_VarPrint( matvar_t *matvar, int printdata )
                 char *data = matvar->data;
                 if ( !printdata )
                     break;
-                for ( i = 0; i < matvar->dims[0]; i++ ) {
-                    for ( j = 0; j < matvar->dims[1]; j++ )
+                for ( i = 0; i < (int)matvar->dims[0]; i++ ) {
+				  for ( j = 0; j < (int)matvar->dims[1]; j++ )
                         printf("%c",data[j*matvar->dims[0]+i]);
                     printf("\n");
                 }
@@ -1778,9 +1778,9 @@ Mat_VarWriteData(mat_t *mat,matvar_t *matvar,void *data,
     } else if ( start == NULL || stride == NULL || edge == NULL ) {
         err = 1;
     } else if ( matvar->rank == 2 ) {
-        if ( stride[0]*(edge[0]-1)+start[0]+1 > matvar->dims[0] ) {
+	  if ( stride[0]*(edge[0]-1)+start[0]+1 > (int)matvar->dims[0] ) {
             err = 1;
-        } else if ( stride[1]*(edge[1]-1)+start[1]+1 > matvar->dims[1] ) {
+	  } else if ( stride[1]*(edge[1]-1)+start[1]+1 > (int)matvar->dims[1] ) {
             err = 1;
         } else {
             switch ( matvar->class_type ) {

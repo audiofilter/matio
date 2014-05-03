@@ -141,9 +141,9 @@ ReadData4(mat_t *mat,matvar_t *matvar,void *data,
     }
 
     if ( matvar->rank == 2 ) {
-        if ( stride[0]*(edge[0]-1)+start[0]+1 > matvar->dims[0] )
+	  if ( stride[0]*(edge[0]-1)+start[0]+1 >(int) matvar->dims[0] )
             err = 1;
-        else if ( stride[1]*(edge[1]-1)+start[1]+1 > matvar->dims[1] )
+	  else if ( stride[1]*(edge[1]-1)+start[1]+1 > (int)matvar->dims[1] )
             err = 1;
         if ( matvar->isComplex ) {
             mat_complex_split_t *cdata = data;
@@ -227,10 +227,10 @@ Mat_VarReadDataLinear4(mat_t *mat,matvar_t *matvar,void *data,int start,
     }
     matvar->data_size = Mat_SizeOf(matvar->data_type);
 
-    for ( i = 0; i < matvar->rank; i++ )
+    for ( i = 0; i < (size_t)matvar->rank; i++ )
         nmemb *= matvar->dims[i];
 
-    if ( stride*(edge-1)+start+1 > nmemb ) {
+    if ( stride*(edge-1)+start+1 > (int)nmemb ) {
         return 1;
     }
     if ( matvar->isComplex ) {
