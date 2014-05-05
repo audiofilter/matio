@@ -1,3 +1,6 @@
+### Status (Mac Clang)
+[![Build Status](https://travis-ci.org/audiofilter/matio.png)](https://travis-ci.org/audiofilter/matio)
+
 From MATIO 1.5.2 - MATLAB MAT file I/O library
 
 Modified for CMake build on Mac OSx 10.9
