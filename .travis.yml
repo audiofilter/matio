@@ -6,6 +6,7 @@ compiler:
   - clang
 before_install:
   - brew update
+  - brew tap homebrew/science
 install:
   - brew install cmake hdf5
 # Change this to your needs
