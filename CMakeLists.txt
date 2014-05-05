@@ -4,6 +4,14 @@ project (matio)
 set(LIBRARY_OUTPUT_PATH ..)
 set(CMAKE_C_FLAGS "-Wall -Wextra -Werror -Wno-unused-function")
 
+find_package(HDF5)
+if (HDF5_FOUND)
+message(STATUS "Found HDF5")
+include_directories(${HDF5_INCLUDE_DIRS})
+else()
+message(STATUS "Didn't find HDF5 - Required for this version")
+endif (HDF5_FOUND)
+
 include_directories (
 ./getopt
 ./src

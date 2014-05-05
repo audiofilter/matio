@@ -15,7 +15,7 @@ hdf5
 See MATIO 1.5.2 README from sourceforge
 
 To build
-
+  (brew install cmake hdf5)
   mkdir build; 
   cd build
   cmake ..
