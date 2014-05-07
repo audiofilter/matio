@@ -231,7 +231,7 @@ EXTERN int    Mat_SetDebug( int d );
 EXTERN void   Mat_Critical( const char *format, ... );
 EXTERN void   Mat_Error( const char *format, ... );
 EXTERN void   Mat_Help( const char *helpstr[] );
-EXTERN int    Mat_LogInit( const char *progname );
+EXTERN int    Mat_LogInit();
 EXTERN int    Mat_LogClose(void);
 EXTERN int    Mat_LogInitFunc(const char *prog_name,
                     void (*log_func)(int log_level, char *message) );
