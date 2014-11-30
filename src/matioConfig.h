@@ -129,9 +129,6 @@
    */
 #define LT_OBJDIR ".libs/"
 
-/* MAT v7.3 file support */
-#define MAT73 1
-
 /* Platform */
 #define MATIO_PLATFORM "x86_64-apple-darwin13.1.0"
 
